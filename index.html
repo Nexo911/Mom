@@ -7,7 +7,6 @@
 <title>Feliz Cumpleaños Mamá 💖</title>
 
 <style>
-
 body{
   margin:0;
   background:pink;
@@ -15,7 +14,6 @@ body{
   text-align:center;
 }
 
-/* CONTENEDOR */
 .container{
   max-width:1000px;
   margin:auto;
@@ -25,7 +23,6 @@ body{
 h1{
   color:white;
   font-size:clamp(26px,6vw,42px);
-  text-shadow:2px 2px 6px rgba(0,0,0,.25);
 }
 
 p{
@@ -33,22 +30,20 @@ p{
   font-size:clamp(16px,4vw,22px);
 }
 
-/* BEAR */
 #bear{
   width:min(300px,80vw);
   margin:20px 0;
   cursor:pointer;
 }
 
-/* SLIDESHOW */
+/* slideshow */
 .slideshow img{
   width:min(420px,90vw);
   border-radius:15px;
   box-shadow:0 10px 25px rgba(0,0,0,.3);
-  margin-top:15px;
 }
 
-/* GALERIA */
+/* gallery */
 .gallery{
   margin-top:30px;
   display:grid;
@@ -65,28 +60,7 @@ p{
 
 .gallery img:hover{
   transform:scale(1.05);
-  box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
-
-/* VISOR GRANDE */
-#viewer{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.85);
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-
-#viewer img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:15px;
-}
-
 </style>
 </head>
 
@@ -99,18 +73,15 @@ p{
 <p>
 Gracias por todo lo que haces por nosotros.<br>
 Eres una persona increíble y te queremos muchísimo.<br>
-Hoy celebramos tu vida y todos los momentos hermosos juntos 🌸✨
+Hoy celebramos tu vida y todos los momentos hermosos juntos ✨
 </p>
 
-<!-- BEAR -->
-<img id="bear" src="bear.gif" alt="Bear feliz">
+<img id="bear" src="bear.gif">
 
-<!-- SLIDESHOW AUTOMÁTICO -->
 <div class="slideshow">
   <img id="slide" src="Screenshot_20260223_104029_Facebook.jpg">
 </div>
 
-<!-- GALERÍA -->
 <div class="gallery">
   <img src="Screenshot_20260223_104029_Facebook.jpg">
   <img src="Screenshot_20260223_104133_Facebook.jpg">
@@ -125,16 +96,9 @@ Hoy celebramos tu vida y todos los momentos hermosos juntos 🌸✨
 
 </div>
 
-<!-- VISOR -->
-<div id="viewer">
-  <img id="bigImage">
-</div>
-
 <script>
-
-/* -------- GIF BEAR -------- */
+/* reiniciar gif */
 const bear=document.getElementById("bear");
-
 function restartGif(){
   const src=bear.src;
   bear.src="";
@@ -143,8 +107,7 @@ function restartGif(){
 window.onload=restartGif;
 bear.onclick=restartGif;
 
-
-/* -------- SLIDESHOW -------- */
+/* slideshow */
 const photos=[
 "Screenshot_20260223_104029_Facebook.jpg",
 "Screenshot_20260223_104133_Facebook.jpg",
@@ -164,23 +127,6 @@ setInterval(()=>{
   index=(index+1)%photos.length;
   slide.src=photos[index];
 },3000);
-
-
-/* -------- VISOR DE FOTOS -------- */
-const viewer=document.getElementById("viewer");
-const bigImage=document.getElementById("bigImage");
-
-document.querySelectorAll(".gallery img").forEach(img=>{
-  img.addEventListener("click",()=>{
-    bigImage.src=img.src;
-    viewer.style.display="flex";
-  });
-});
-
-viewer.addEventListener("click",()=>{
-  viewer.style.display="none";
-});
-
 </script>
 
 </body>
