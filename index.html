@@ -3,52 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Feliz Cumpleaños Mamá 💖</title>
 
 <style>
-body{
+/* -------- ANIMACIÓN ENTRADA -------- */
+body {
   margin:0;
-  background:pink;
-  font-family:Arial, sans-serif;
-  text-align:center;
+  font-family: Arial, sans-serif;
+  overflow-x:hidden;
+  opacity:0;
+  animation: fadeInBody 2s forwards;
 }
 
-.container{
+/* FONDO ANIMADO */
+body{
+  background: linear-gradient(-45deg, #ff9ecb, #ffc1e3, #ffd6f0, #ffb3d9);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite, fadeInBody 2s forwards;
+}
+
+@keyframes gradientMove{
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInBody {
+  to { opacity: 1; }
+}
+
+/* CONTENIDO PRINCIPAL */
+#mainContent{
+  position: relative;
+  z-index: 2;
+  text-align:center;
   max-width:1000px;
   margin:auto;
   padding:20px;
+  color:white;
 }
 
+/* TITULO Y TEXTO */
 h1{
-  color:white;
   font-size:clamp(26px,6vw,42px);
+  text-shadow:2px 2px 6px rgba(0,0,0,.25);
 }
 
 p{
-  color:white;
   font-size:clamp(16px,4vw,22px);
 }
 
+/* BEAR */
 #bear{
   width:min(300px,80vw);
   margin:20px 0;
   cursor:pointer;
+  position: relative;
+  z-index:2;
 }
 
-/* slideshow */
+/* SLIDESHOW */
 .slideshow img{
   width:min(420px,90vw);
   border-radius:15px;
   box-shadow:0 10px 25px rgba(0,0,0,.3);
+  margin-top:15px;
+  position: relative;
+  z-index:2;
 }
 
-/* gallery */
+/* GALERIA */
 .gallery{
   margin-top:30px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:12px;
+  position: relative;
+  z-index:2;
 }
 
 .gallery img{
@@ -60,44 +91,84 @@ p{
 
 .gallery img:hover{
   transform:scale(1.05);
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+/* VISOR */
+#viewer{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:3;
+}
+
+#viewer img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:15px;
+}
+
+/* PARTICULAS */
+#particlesContainer{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<!-- PARTICULAS DETRAS -->
+<div id="particlesContainer"></div>
 
-<h1>🎂 Feliz Cumpleaños Mamá 💖</h1>
+<!-- CONTENIDO PRINCIPAL -->
+<div id="mainContent">
+  <h1>🎂 Feliz Cumpleaños Mamá 💖</h1>
 
-<p>
-Gracias por todo lo que haces por nosotros.<br>
-Eres una persona increíble y te queremos muchísimo.<br>
-Hoy celebramos tu vida y todos los momentos hermosos juntos ✨
-</p>
+  <p>
+  Gracias por todo lo que haces por nosotros.<br>
+  Eres una persona increíble y te queremos muchísimo.<br>
+  Hoy celebramos tu vida y todos los momentos hermosos juntos ✨
+  </p>
 
-<img id="bear" src="bear.gif">
+  <img id="bear" src="bear.gif">
 
-<div class="slideshow">
-  <img id="slide" src="Screenshot_20260223_104029_Facebook.jpg">
+  <!-- SLIDESHOW -->
+  <div class="slideshow">
+    <img id="slide" src="Screenshot_20260223_104029_Facebook.jpg">
+  </div>
+
+  <!-- GALERIA -->
+  <div class="gallery">
+    <img src="Screenshot_20260223_104029_Facebook.jpg">
+    <img src="Screenshot_20260223_104133_Facebook.jpg">
+    <img src="Screenshot_20260223_104319_Facebook.jpg">
+    <img src="Screenshot_20260223_104340_Facebook.jpg">
+    <img src="Screenshot_20260223_104554_Facebook.jpg">
+    <img src="Screenshot_20260223_104604_Facebook.jpg">
+    <img src="Screenshot_20260223_104724_Facebook.jpg">
+    <img src="Screenshot_20260223_104740_Facebook.jpg">
+    <img src="Screenshot_20260223_104801_Facebook.jpg">
+  </div>
 </div>
 
-<div class="gallery">
-  <img src="Screenshot_20260223_104029_Facebook.jpg">
-  <img src="Screenshot_20260223_104133_Facebook.jpg">
-  <img src="Screenshot_20260223_104319_Facebook.jpg">
-  <img src="Screenshot_20260223_104340_Facebook.jpg">
-  <img src="Screenshot_20260223_104554_Facebook.jpg">
-  <img src="Screenshot_20260223_104604_Facebook.jpg">
-  <img src="Screenshot_20260223_104724_Facebook.jpg">
-  <img src="Screenshot_20260223_104740_Facebook.jpg">
-  <img src="Screenshot_20260223_104801_Facebook.jpg">
-</div>
-
+<!-- VISOR -->
+<div id="viewer">
+  <img id="bigImage">
 </div>
 
 <script>
-/* reiniciar gif */
+/* -------- GIF BEAR -------- */
 const bear=document.getElementById("bear");
 function restartGif(){
   const src=bear.src;
@@ -107,7 +178,7 @@ function restartGif(){
 window.onload=restartGif;
 bear.onclick=restartGif;
 
-/* slideshow */
+/* -------- SLIDESHOW -------- */
 const photos=[
 "Screenshot_20260223_104029_Facebook.jpg",
 "Screenshot_20260223_104133_Facebook.jpg",
@@ -122,12 +193,75 @@ const photos=[
 
 let index=0;
 const slide=document.getElementById("slide");
-
 setInterval(()=>{
   index=(index+1)%photos.length;
   slide.src=photos[index];
 },3000);
-</script>
 
+/* -------- VISOR DE GALERIA -------- */
+const viewer=document.getElementById("viewer");
+const bigImage=document.getElementById("bigImage");
+
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.addEventListener("click",()=>{
+    bigImage.src=img.src;
+    viewer.style.display="flex";
+  });
+});
+viewer.addEventListener("click",()=>{
+  viewer.style.display="none";
+});
+
+/* -------- PARTICULAS GIF CON COLLISION -------- */
+const particlesContainer = document.getElementById("particlesContainer");
+const contentItems = [...document.querySelectorAll(".gallery img, #bear, #slide")];
+
+function createParticle(){
+  const img = document.createElement("img");
+  img.src = "hearts.gif";
+  img.style.position = "absolute";
+  img.style.width = (150 + Math.random()*60) + "px";
+  img.style.left = Math.random()*100 + "%";
+  img.style.bottom = "-50px";
+  img.style.opacity = 1;
+  particlesContainer.appendChild(img);
+
+  const duration = 6000;
+  const start = performance.now();
+
+  function animateParticle(time){
+    const elapsed = time - start;
+    const progress = elapsed/duration;
+    const y = -110 * progress; // translateY porcentaje
+
+    img.style.transform = `translateY(${y}vh)`;
+
+    // detectar colisión con contenido
+    let colliding = false;
+    const pRect = img.getBoundingClientRect();
+    for(const item of contentItems){
+      const cRect = item.getBoundingClientRect();
+      if(!(pRect.right < cRect.left || pRect.left > cRect.right ||
+           pRect.bottom < cRect.top || pRect.top > cRect.bottom)){
+        colliding = true;
+        break;
+      }
+    }
+
+    img.style.opacity = colliding ? 0 : 1; // fade out si colisiona
+
+    if(progress < 1){
+      requestAnimationFrame(animateParticle);
+    } else {
+      img.remove();
+    }
+  }
+
+  requestAnimationFrame(animateParticle);
+}
+
+setInterval(createParticle, 600);
+
+</script>
 </body>
 </html>
