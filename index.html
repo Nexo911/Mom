@@ -133,10 +133,10 @@ p{
 
 <!-- CONTENIDO PRINCIPAL -->
 <div id="mainContent">
-  <h1>Feliz cumple mamiii</h1>
+  <h1>Feliz cumple mamii</h1>
 
   <p>
-  Ojala y siguas cumpliendo muchos años mass.<br>
+  Que siguas cumpliendo muchos años.<br>
   </p>
 
   <img id="bear" src="bear.gif">
@@ -150,18 +150,19 @@ p{
   <div class="gallery">
     <img src="Screenshot_20260223_104029_Facebook.jpg">
     <img src="Screenshot_20260223_104133_Facebook.jpg">
-    <img src="Screenshot_20260223_104154_Facebook.jpg">
-    <img src="Screenshot_20260223_104245_Facebook.jpg">
     <img src="Screenshot_20260223_104319_Facebook.jpg">
     <img src="Screenshot_20260223_104340_Facebook.jpg">
-    <img src="Screenshot_20260223_104504_Facebook.jpg">
-    <img src="Screenshot_20260223_104544_Facebook.jpg">
+    <img src="Screenshot_20260223_104554_Facebook.jpg">
     <img src="Screenshot_20260223_104604_Facebook.jpg">
-    <img src="Screenshot_20260223_104619_Facebook.jpg">
-    <img src="Screenshot_20260223_104704_Facebook.jpg">
     <img src="Screenshot_20260223_104724_Facebook.jpg">
     <img src="Screenshot_20260223_104740_Facebook.jpg">
     <img src="Screenshot_20260223_104801_Facebook.jpg">
+    <img src="Screenshot_20260223_114154_Facebook.jpg">
+    <img src="Screenshot_20260223_114245_Facebook.jpg">
+    <img src="Screenshot_20260223_114504_Facebook.jpg">
+    <img src="Screenshot_20260223_114544_Facebook.jpg">
+    <img src="Screenshot_20260223_114619_Facebook.jpg">
+    <img src="Screenshot_20260223_114704_Facebook.jpg">
   </div>
 </div>
 
@@ -183,20 +184,21 @@ bear.onclick=restartGif;
 
 /* -------- SLIDESHOW -------- */
 const photos=[
-"Screenshot_20260223_104029_Facebook.jpg",
-"Screenshot_20260223_104133_Facebook.jpg",
-"Screenshot_20260223_104154_Facebook.jpg",
-"Screenshot_20260223_104245_Facebook.jpg",
-"Screenshot_20260223_104319_Facebook.jpg",
-"Screenshot_20260223_104340_Facebook.jpg",
-"Screenshot_20260223_104504_Facebook.jpg",
-"Screenshot_20260223_104544_Facebook.jpg",
-"Screenshot_20260223_104604_Facebook.jpg",
-"Screenshot_20260223_104619_Facebook.jpg",
-"Screenshot_20260223_114704_Facebook.jpg",
-"Screenshot_20260223_104724_Facebook.jpg",
-"Screenshot_20260223_104740_Facebook.jpg",
-"Screenshot_20260223_104801_Facebook.jpg"
+  "Screenshot_20260223_104029_Facebook.jpg",
+  "Screenshot_20260223_104133_Facebook.jpg",
+  "Screenshot_20260223_104319_Facebook.jpg",
+  "Screenshot_20260223_104340_Facebook.jpg",
+  "Screenshot_20260223_104554_Facebook.jpg",
+  "Screenshot_20260223_104604_Facebook.jpg",
+  "Screenshot_20260223_104724_Facebook.jpg",
+  "Screenshot_20260223_104740_Facebook.jpg",
+  "Screenshot_20260223_104801_Facebook.jpg",
+  "Screenshot_20260223_114154_Facebook.jpg",
+  "Screenshot_20260223_114245_Facebook.jpg",
+  "Screenshot_20260223_114504_Facebook.jpg",
+  "Screenshot_20260223_114544_Facebook.jpg",
+  "Screenshot_20260223_114619_Facebook.jpg",
+  "Screenshot_20260223_114704_Facebook.jpg"
 ];
 
 let index=0;
@@ -220,9 +222,9 @@ viewer.addEventListener("click",()=>{
   viewer.style.display="none";
 });
 
-/* -------- PARTICULAS GIF CON COLLISION -------- */
+/* -------- PARTICULAS GIF CON COLLISION SOLO CON SLIDESHOW Y BEAR -------- */
 const particlesContainer = document.getElementById("particlesContainer");
-const contentItems = [...document.querySelectorAll(".gallery img, #bear, #slide")];
+const contentItems = [document.getElementById("bear"), document.getElementById("slide")];
 
 function createParticle(){
   const img = document.createElement("img");
@@ -244,7 +246,7 @@ function createParticle(){
 
     img.style.transform = `translateY(${y}vh)`;
 
-    // detectar colisión con contenido
+    // detectar colisión solo con oso y slideshow
     let colliding = false;
     const pRect = img.getBoundingClientRect();
     for(const item of contentItems){
@@ -256,8 +258,7 @@ function createParticle(){
       }
     }
 
-    img.style.opacity = colliding ? 0 : 1; // fade out si colisiona
-
+    img.style.opacity = colliding ? 0 : 1; // fade out solo si colisiona
     if(progress < 1){
       requestAnimationFrame(animateParticle);
     } else {
